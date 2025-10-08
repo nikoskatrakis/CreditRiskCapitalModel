@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+utils.py
+nkutils.egg-info/PKG-INFO
+nkutils.egg-info/SOURCES.txt
+nkutils.egg-info/dependency_links.txt
+nkutils.egg-info/requires.txt
+nkutils.egg-info/top_level.txt

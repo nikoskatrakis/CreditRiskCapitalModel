@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nkutils"
+version = "0.1.1"
+description = "Simple Utilities for reading from excel named ranges, forward rates and other minor tasks"
+readme = {file = "README.md", content-type = "text/markdown"}
+authors = [{name="Nikos Katrakis", email="nikosandthepython@gmail.com"}]
+dependencies = [
+    "numpy",
+    "pandas",
+    "openpyxl"
+]

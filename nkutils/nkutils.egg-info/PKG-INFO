@@ -1,0 +1,53 @@
+Metadata-Version: 2.4
+Name: nkutils
+Version: 0.1.1
+Summary: Simple Utilities for reading from excel named ranges, forward rates and other minor tasks
+Author-email: Nikos Katrakis <nikosandthepython@gmail.com>
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: openpyxl
+
+Experimental package with some functions I found useful for automating frequently used tasks
+
+The package is for illustration only - it is unlikely it will be updated. Or it may be replaced by a more comprehensive list of other packages.
+
+It has the following functions: 
+- read_named_range_to_dataframe(file_path, sheet_name, range_name, header=True)
+    - reads data to a python dataframe from a named range in excel. 
+    - arguments are: 
+        - filepath: the name of the file, together with the path, if not in the working directory
+        - sheet_name: self-explanatory
+        - range_name: self-explanatory
+        - header: defaults to True, which assumes the table/range has a label.
+    - even if you put "A1:B5", the code should work. ,m,
+    - it reads single cells as well as rectangular ranges.
+    - It probably fails with ranges that are neither of the two above. 
+    - it works with .xlsx and .xlsm files. Does not work with .xlsb files for now. 
+
+-   forward_rate(rfr, t1,t2, comp="ann")
+    - calculates the forward rate between two times
+    - takes as inputs a list of spot rates and the two times between which the forward rate is to be calculated
+    - the list is assumed to have rates at each year (so it assumes annual rates)
+    - by default it assumes annual compounding. You can set comp = "cont" for continuous formula.
+
+-   send2clipboard(A,colnames = ["datafrompython"])
+    - used mainly while debugging jupyter notebook files; 
+    - A is usually a numpy array. 
+    - you can add a colnames argument that matches the number of columns of the array
+    - no index is printed.
+
+-   print_stats(myseries,percentiles = [0.01, 0.05, 0.25, 0.5, 0.75, 0.95, 0.99], colnames = None)
+    - prints various statistics from the myseries data; the built-in describe function didnt do it for me!
+    - myseries needs to be a numpy array with numerical data only; nan values will result in error
+    - as well as the percentiles, it prints mean, st.dev, skewness, kurtosis, min and max
+    - colnames need to have the right size, or it will result in an error. or you can leave empty
+    - this is a crude stats function. a more sophisticated one will be published in due course.
+
+-  align_to_schema(subdf: pd.DataFrame, maindf: pd.DataFrame)
+    - produces a single dataframe with all columns of the main dataframe, maintaining their order.
+    - it also adds any columns in the subdf that are not in the maindf 
+    - it makes sure there is no NaN data, by putting zeros or empty strings in the relevant columns
+    - useful for combining a "base position" list of assets with a "buy list" which may have some fields that are not relevant in the base scenario (e.g. asset base MA or asset base FS)
+
+If you have used the previous version, please note the forward rate calc was wrong - it is fixed now. 
